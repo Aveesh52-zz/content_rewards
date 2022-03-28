@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: contentrewards
+    network: matic
+    source:
+      address: "0x4Ff74833566f59596Caf8DdB5aef311744e4E43b"
+      abi: contentrewards
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AddedReward
+        - RedeemedReward
+      abis:
+        - name: contentrewards
+          file: contentrewards/abis/contentrewards.json
+      eventHandlers:
+        - event: AddedReward(address,uint256)
+          handler: handleAddedReward
+        - event: RedeemedReward(address,uint256,bytes32)
+          handler: handleRedeemedReward
+      file: contentrewards/contentrewards.wasm
